@@ -6,31 +6,28 @@ import { webhook } from "./controllers/webhook.controller.js";
 
 const WEBHOOK_SECRET_KEY = process.env.WEBHOOK_SECRET_KEY;
 
-// دریافت شماره نمونه و پورت
 const instanceId = parseInt(process.env.NODE_APP_INSTANCE || "0", 10);
 const basePort = parseInt(process.env.PORT || "3000", 10);
 const PORT = basePort + instanceId;
 
-let WEBHOOK_SECRET_BUF = null;
-if (WEBHOOK_SECRET_KEY) {
-  WEBHOOK_SECRET_BUF = Buffer.from(WEBHOOK_SECRET_KEY);
-} else {
+if (!WEBHOOK_SECRET_KEY)
   console.warn(
     "[Gateway] WEBHOOK_SECRET_KEY is not set. Webhook verification will be bypassed.",
   );
-}
 
-// --- Elysia App ---
 const app = new Elysia()
-  .decorate("webhookSecretBuf", WEBHOOK_SECRET_BUF)
   .get("/health", health)
   .post("/webhook/:secret", webhook, {
     params: t.Object({
-      secret: t.String(),
+      secret: t.Literal(WEBHOOK_SECRET_KEY, {
+        error: {
+          ok: false,
+          message: "unauthorized error",
+        },
+      }),
     }),
   });
 
-// روش صحیح اجرا برای Node.js
 try {
   const server = app.listen(PORT, () => {
     console.log(`[Gateway] Instance ${instanceId} is running on port ${PORT}`);
