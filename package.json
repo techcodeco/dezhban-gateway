@@ -1,0 +1,31 @@
+{
+  "name": "dezhban",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon --exec bun ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/techcodeco/dezhban.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/techcodeco/dezhban/issues"
+  },
+  "homepage": "https://github.com/techcodeco/dezhban#readme",
+  "dependencies": {
+    "autocannon": "^8.0.0",
+    "axios": "^1.17.0",
+    "dotenv": "^17.4.2",
+    "elysia": "^1.4.28",
+    "ioredis": "^5.11.0",
+    "pino": "^10.3.1",
+    "redis": "^6.0.0"
+  }
+}

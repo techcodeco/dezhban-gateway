@@ -1,0 +1,82 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json   # Optional: commit this if using npm
+yarn.lock           # Optional: commit this if using yarn
+pnpm-lock.yaml      # Optional: commit this if using pnpm
+
+
+# Logs
+logs/
+*.log
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+.nyc_output/
+
+# TypeScript build output
+dist/
+build/
+lib/
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn v2/3/4 files
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+.pnp.js
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Temporary folders
+tmp/
+temp/
+
+# Debug logs
+debug.log
+
+# Mac OS metadata
+._*
+
+# Jest
+/junit.xml
+
+# Next.js (if using Next.js)
+.next/
+out/
+
+# Nuxt.js (if using Nuxt.js)
+.nuxt/
+.nuxt-dist/
+
+# SvelteKit (if using SvelteKit)
+.svelte-kit/
