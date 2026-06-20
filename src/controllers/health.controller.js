@@ -8,6 +8,6 @@ export const health = () => ({
   ok: true,
   service: "gateway",
   developer: "techcode",
-  redisConnected: redis.status === "ready",
   port: PORT,
+  instanceId,
 });

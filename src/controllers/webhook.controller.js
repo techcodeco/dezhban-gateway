@@ -2,7 +2,7 @@ import { redis } from "../config/redis.js";
 
 const STREAM_NAME = process.env.STREAM_NAME || "rubika:updates";
 const BATCH_SIZE = 500; // افزایش به 500 برای吞吐 بیشتر
-const BATCH_TIMEOUT_MS = 3; // کاهش به 3ms
+const BATCH_TIMEOUT_MS = 5; // کاهش به 3ms
 
 class UltraFastBatchProcessor {
   constructor(redis, streamName, batchSize = 500, timeoutMs = 3) {
@@ -17,7 +17,7 @@ class UltraFastBatchProcessor {
 
   add(payload) {
     return new Promise((resolve, reject) => {
-      this.batch.push({ payload, resolve, reject, timestamp: Date.now() });
+      this.batch.push({ payload, resolve, reject });
       if (this.batch.length >= this.batchSize) {
         if (this.timer) {
           clearTimeout(this.timer);
@@ -127,9 +127,7 @@ export const webhook = async ({ request, set }) => {
   }
   try {
     await Promise.race([
-      batchProcessor.add({
-        payload: jsonPayload,
-      }),
+      batchProcessor.add(jsonPayload),
       new Promise((_, reject) =>
         setTimeout(() => reject(new Error("Queue timeout")), 100),
       ),
@@ -146,7 +144,6 @@ export const webhook = async ({ request, set }) => {
 
 const shutdown = async () => {
   console.log("\n🛑 Shutting down gracefully...");
-  console.log("📊 Final stats:", batchProcessor.getStats());
   console.log("⏳ Flushing remaining batches...");
   await batchProcessor.close();
   console.log("✅ All data flushed to Redis");
