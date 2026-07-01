@@ -2,7 +2,7 @@ import Redis from "ioredis";
 
 const redis = new Redis(process.env.REDIS_URI, {
   enableReadyCheck: false,
-  lazyConnect: true,
+  //lazyConnect: true,
   maxRetriesPerRequest: 1,
   retryStrategy: (times) => {
     if (times > 3) return null;
